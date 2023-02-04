@@ -1,5 +1,6 @@
-Problem: PDF documents in my German class were horizontal
-Solution: Create GUI to select PDF and automatically rotate it to make reading easier
+Problem: PDF documents in my German class were horizontal.
+
+Solution: Create GUI to select PDF and automatically rotate it to make reading easier.
 
 Technologies and Libraries:
 - Language(s): Python
