@@ -38,6 +38,7 @@ def __rotate_pages(pdf_path):
         writer.add_page(reader.pages[page])
         writer.pages[page].rotate(90)
 
+    # Assert New File Name Field Is Not Empty
     assert newFileNameField.get()
     with open(f"{newFileNameField.get()}.pdf", 'wb') as fp:
         writer.write(fp)
