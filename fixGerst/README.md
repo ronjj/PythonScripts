@@ -2,6 +2,9 @@
 
 **Solution**: Create GUI to select PDF and automatically rotate it to make reading easier.
 
+_Screenshots_
+<img src="/fixGerst/fixGerst-SS1.PNG" alt="side-by-side-of-pdfs" title="PDFs Side by Side" height = "300" width = "300">
+<img src="/fixGerst/fixGerst-SS2.PNG" alt="gui" title="GUI" height = "300" width = "300">
 
 _What I Learned_:
 - TKinter
@@ -14,3 +17,6 @@ _Technologies and Libraries Used_:
 - Language(s): Python
 - Handling PDFs: PyPDF
 - GUI: TKinter
+
+
+
