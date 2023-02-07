@@ -38,5 +38,6 @@ if above100:
 
         print(f"The current price of {whereToInvest} is {stockInfo.info['ask']}")
         print(f"You could buy {thirtyPercent / int(stockInfo.info['ask']) } shares of {whereToInvest}.")
-        #TODO: check for response from yfinance. If respone is invalid, let the user know they entered an invalid
-        #stock ticker 
+    
+    else:
+        print("ok")
