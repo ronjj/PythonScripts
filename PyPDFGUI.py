@@ -3,12 +3,9 @@ import tkinter as tk
 from tkinter.filedialog import askopenfilename
 from tkinter import messagebox
 
-
-
-# 612px x 792px
-# TODO: Can i extract out the reader = PDFReader into a class attribute and just use .self
-# TODO: Functionality for watermark
-# TODO: Functionality to combine two pdfs
+# Rotate PDF pages left or right
+# Can optionally write a new PDF name
+    # if a new name is not entered, original pdf name is used
 
 class PdfFunctions(object):
         
@@ -44,9 +41,8 @@ class PdfFunctions(object):
             writer.add_page(reader.pages[page])
             writer.pages[page].rotate(90)
 
-        # Assert New File Name Field Is Not Empty
-        # assert newFileNameField.get()
-        with open(f"{newFileNameField.get()}.pdf", 'wb') as fp:
+ #    If new PDF name field is empty, new pdf name is the same as original pdf name
+        with open(f"{newFileNameField.get()}.pdf" if newFileNameField.get() != "" else getOriginalFileName(), 'wb') as fp:
             writer.write(fp)
             messagebox.showinfo(title= "Successful", message="Successfully Rotated File")
 
@@ -58,16 +54,11 @@ class PdfFunctions(object):
             writer.add_page(reader.pages[page])
             writer.pages[page].rotate(-90)
 
-        # Assert New File Name Field Is Not Empty
-        # assert newFileNameField.get()
-
+    #    If new PDF name field is empty, new pdf name is the same as original pdf name
         with open(f"{newFileNameField.get()}.pdf" if newFileNameField.get() != "" else getOriginalFileName(), 'wb') as fp:
             writer.write(fp)
             messagebox.showinfo(title= "Successful", message="Successfully Rotated File")
     
-# FIXME: if newfieldnamefield is empty, use original pdf name. else: use nwe one
-# need to figure out how to get original pdf name
-
 
 # Keeping Track of State
 clicked = False
@@ -83,14 +74,10 @@ def getFile():
 
 def getOriginalFileName():
     selectedPDF = PdfFunctions.selectedFilePath
-    print(selectedPDF)
     indexOfDotPDF = selectedPDF.find(".pdf")
-    print(indexOfDotPDF)
     indexOfLastSlash = selectedPDF.rfind("/")
-    print(indexOfLastSlash)
-    toReturn = f"{str(selectedPDF[indexOfLastSlash+1:indexOfDotPDF])}.pdf"
-    print(toReturn)
-    return toReturn
+    result = f"{str(selectedPDF[indexOfLastSlash+1:indexOfDotPDF])}.pdf"
+    return result
 
 # Had to abstract out functions because leaving them in the command makes them automatically run as the 
 # program goes through it's main loop
