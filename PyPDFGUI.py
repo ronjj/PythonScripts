@@ -51,6 +51,7 @@ class PdfFunctions(object):
             messagebox.showinfo(title= "Successful", message="Successfully Rotated File")
 
     def rotate_left_and_save(pdf_path):
+        
 
         reader = PdfReader(pdf_path)
         writer = PdfWriter()
