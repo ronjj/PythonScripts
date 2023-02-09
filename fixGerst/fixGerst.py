@@ -7,6 +7,11 @@ from tkinter import messagebox
 # Can optionally write a new PDF name
     # if a new name is not entered, original pdf name is used
 
+# TODO: Ability to change where file is saved. 
+# TODO: ability to merge pdfs
+    # be able to choose and store multiple files 
+    #merge the two files
+
 class PdfFunctions(object):
         
     #PDF That User Selects
@@ -59,7 +64,21 @@ class PdfFunctions(object):
             writer.write(fp)
             messagebox.showinfo(title= "Successful", message="Successfully Rotated File")
     
+    def insert_blank_at_end(pdf_path):
+        reader = PdfReader(pdf_path)
+        writer = PdfWriter()
 
+        for page in range(0,len(reader.pages)):
+            writer.add_page(reader.pages[page])
+    
+        writer.add_blank_page()
+
+        with open(f"{newFileNameField.get()}.pdf" if newFileNameField.get() != "" else getOriginalFileName(), 'wb') as fp:
+            writer.write(fp)
+            messagebox.showinfo(title= "Successful", message="Added Blank Page")
+
+
+    
 # Keeping Track of State
 clicked = False
 clickCounter = 0
@@ -86,6 +105,10 @@ def callRotateLeft():
 
 def callRotateRight():
     return PdfFunctions.rotate_right_and_save(PdfFunctions.selectedFilePath)
+
+def callAddBlankPage():
+    return PdfFunctions.insert_blank_at_end(PdfFunctions.selectedFilePath)
+
     
 def addRotateLeftandRotateRight():
     global clickCounter
@@ -105,6 +128,9 @@ def addRotateLeftandRotateRight():
         # #Rotate Right and Save Button
         rotateRightButton = tk.Button(root, text="Rotate Right and Save", command=callRotateRight)
         rotateRightButton.pack()
+
+        insertBlankAtEnd = tk.Button(root, text="Insert Blank At End", command=callAddBlankPage)
+        insertBlankAtEnd.pack()
 
 #Creating TKinter Main Window
 root = tk.Tk()
