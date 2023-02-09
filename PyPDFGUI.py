@@ -14,7 +14,7 @@ class PdfFunctions(object):
         
     #PDF That User Selects
     selectedFilePath = ""
-    
+
     #Function to get information on PDF
     def get_info(pdf_path):
         with open (pdf_path, 'rb') as f:
@@ -45,14 +45,12 @@ class PdfFunctions(object):
             writer.pages[page].rotate(90)
 
         # Assert New File Name Field Is Not Empty
-        assert newFileNameField.get()
+        # assert newFileNameField.get()
         with open(f"{newFileNameField.get()}.pdf", 'wb') as fp:
             writer.write(fp)
             messagebox.showinfo(title= "Successful", message="Successfully Rotated File")
 
     def rotate_left_and_save(pdf_path):
-        
-
         reader = PdfReader(pdf_path)
         writer = PdfWriter()
 
@@ -61,11 +59,15 @@ class PdfFunctions(object):
             writer.pages[page].rotate(-90)
 
         # Assert New File Name Field Is Not Empty
-        assert newFileNameField.get()
-        with open(f"{newFileNameField.get()}.pdf", 'wb') as fp:
+        # assert newFileNameField.get()
+
+        with open(f"{newFileNameField.get()}.pdf" if newFileNameField.get() != "" else getOriginalFileName(), 'wb') as fp:
             writer.write(fp)
             messagebox.showinfo(title= "Successful", message="Successfully Rotated File")
     
+# FIXME: if newfieldnamefield is empty, use original pdf name. else: use nwe one
+# need to figure out how to get original pdf name
+
 
 # Keeping Track of State
 clicked = False
@@ -79,6 +81,17 @@ def getFile():
     clicked = True
     return filePath
 
+def getOriginalFileName():
+    selectedPDF = PdfFunctions.selectedFilePath
+    print(selectedPDF)
+    indexOfDotPDF = selectedPDF.find(".pdf")
+    print(indexOfDotPDF)
+    indexOfLastSlash = selectedPDF.rfind("/")
+    print(indexOfLastSlash)
+    toReturn = f"{str(selectedPDF[indexOfLastSlash+1:indexOfDotPDF])}.pdf"
+    print(toReturn)
+    return toReturn
+
 # Had to abstract out functions because leaving them in the command makes them automatically run as the 
 # program goes through it's main loop
 def callRotateLeft():
@@ -86,23 +99,20 @@ def callRotateLeft():
 
 def callRotateRight():
     return PdfFunctions.rotate_right_and_save(PdfFunctions.selectedFilePath)
-
-def callAddBlankPage():
-    return PdfFunctions.add_blank_page(PdfFunctions.selectedFilePath)
     
 def addRotateLeftandRotateRight():
     global clickCounter
 
     root.after(1000, addRotateLeftandRotateRight)
     if clicked and clickCounter == 0:
-
+        
         # Tell user which PDF they selected
         filePathNameLabe = tk.Label(root, text=f"Selected: {PdfFunctions.selectedFilePath}", font=('Arial',12))
         filePathNameLabe.pack()
 
         # #Rotate Left and Save Button
         rotateLeftButton = tk.Button(root, text="Rotate Left and Save", command=callRotateLeft)
-        rotateLeftButton.pack()
+        rotateLeftButton.pack(pady=10)
         clickCounter = 1
 
         # #Rotate Right and Save Button
