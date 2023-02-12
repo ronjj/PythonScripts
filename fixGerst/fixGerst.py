@@ -6,12 +6,6 @@ from tkinter import messagebox
 # Rotate PDF pages left or right
 # Can optionally write a new PDF name
     # if a new name is not entered, original pdf name is used
-
-# TODO: Ability to change where file is saved. 
-# TODO: ability to merge pdfs
-    # be able to choose and store multiple files 
-    #merge the two files
-
 class PdfFunctions(object):
         
     #PDF That User Selects
@@ -77,8 +71,7 @@ class PdfFunctions(object):
             writer.write(fp)
             messagebox.showinfo(title= "Successful", message="Added Blank Page")
 
-
-    
+ 
 # Keeping Track of State
 clicked = False
 clickCounter = 0
@@ -109,27 +102,27 @@ def callRotateRight():
 def callAddBlankPage():
     return PdfFunctions.insert_blank_at_end(PdfFunctions.selectedFilePath)
 
-    
-def addRotateLeftandRotateRight():
+def addRotateLeftRightAndBlank():
     global clickCounter
 
-    root.after(1000, addRotateLeftandRotateRight)
+    root.after(1000, addRotateLeftRightAndBlank)
     if clicked and clickCounter == 0:
         
         # Tell user which PDF they selected
         filePathNameLabe = tk.Label(root, text=f"Selected: {PdfFunctions.selectedFilePath}", font=('Arial',12))
         filePathNameLabe.pack()
 
-        # #Rotate Left and Save Button
+        # #Rotate Pages Left and Save Button
         rotateLeftButton = tk.Button(root, text="Rotate Left and Save", command=callRotateLeft)
         rotateLeftButton.pack(pady=10)
         clickCounter = 1
 
-        # #Rotate Right and Save Button
+        # Rotate Pages Right and Save Button
         rotateRightButton = tk.Button(root, text="Rotate Right and Save", command=callRotateRight)
         rotateRightButton.pack()
 
-        insertBlankAtEnd = tk.Button(root, text="Insert Blank At End", command=callAddBlankPage)
+        #Button To Insert Blank Page At End
+        insertBlankAtEnd = tk.Button(root, text="Insert Blank Page At End", command=callAddBlankPage)
         insertBlankAtEnd.pack()
 
 #Creating TKinter Main Window
@@ -149,5 +142,5 @@ selectPdfLabel.pack(pady=10)
 selectFileButton = tk.Button(root, text="Select PDF", command=getFile)
 selectFileButton.pack()
 
-addRotateLeftandRotateRight()
+addRotateLeftRightAndBlank()
 root.mainloop()
