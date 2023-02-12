@@ -5,7 +5,7 @@
 _Screenshots_
 
 <img src="/fixGerst/fixGerst-SS1.png" alt="side-by-side-of-pdfs" title="PDFs Side by Side" height = "300" width = "400">
-<img src="/fixGerst/fixGerst-SS2.png" alt="gui" title="GUI" height = "400" width = "400">
+<img src="/fixGerst/fixGerst-SS2.png" alt="gui" title="GUI" height = "350" width = "400">
 
 
 _What I Learned_:
